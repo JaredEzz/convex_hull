@@ -19,6 +19,8 @@ BLUE = (0,0,255)
 #
 PAUSE = 0.25
 
+
+
 #
 # This is the class you have to complete.
 #
@@ -28,7 +30,7 @@ class ConvexHullSolver(QObject):
 	def __init__( self):
 		super().__init__()
 		self.pause = False
-		
+
 # Some helper methods that make calls to the GUI, allowing us to send updates
 # to be displayed.
 
@@ -48,13 +50,19 @@ class ConvexHullSolver(QObject):
 		self.view.addLines(polygon,color)
 		if self.pause:
 			time.sleep(PAUSE)
-		
+
 	def eraseHull(self,polygon):
 		self.view.clearLines(polygon)
-		
+
 	def showText(self,text):
 		self.view.displayStatusText(text)
-	
+
+	# compare QPointF base on x-axis
+	# comparison is O(nlogn), space complexity is O(n)
+	def compare_QPointF(original, comparison):
+		return original.x() < comparison.x()
+
+	QPointF.__lt__ = compare_QPointF
 
 # This is the method that gets called by the GUI and actually executes
 # the finding of the hull
@@ -64,7 +72,8 @@ class ConvexHullSolver(QObject):
 		assert( type(points) == list and type(points[0]) == QPointF )
 
 		t1 = time.time()
-		# TODO: SORT THE POINTS BY INCREASING X-VALUE
+		# jh - sort the points using defined compare_to function
+		points.sort()
 		t2 = time.time()
 
 		t3 = time.time()
