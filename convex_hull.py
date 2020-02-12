@@ -58,7 +58,7 @@ def get_upper_tangent(left_start, left_hull, right_start, right_hull):
     left_i = left_start
     right_i = right_start
     previous_tangent = tuple([left_i, right_i])
-    while 1:
+    while True:
         slope = calculate_slope(left_hull[left_i], right_hull[right_i])
         left_slope_decreasing = True
         while left_slope_decreasing:
@@ -84,14 +84,14 @@ def get_upper_tangent(left_start, left_hull, right_start, right_hull):
             else:
                 right_slope_increasing = False
 
-                current_tangent = tuple([left_i, right_i])
-                # if tangent value is constant, checks haven't changed it, it's final
-                if previous_tangent == current_tangent:
-                    break
+        current_tangent = tuple([left_i, right_i])
+        # if tangent value is constant, checks haven't changed it, it's final
+        if previous_tangent == current_tangent:
+            break
 
-                previous_tangent = current_tangent
+        previous_tangent = current_tangent
 
-        return left_i, right_i
+    return left_i, right_i
 
 
 class ConvexHullSolver(QObject):
