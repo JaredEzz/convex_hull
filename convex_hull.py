@@ -51,7 +51,7 @@ def get_closest_x(partial_hull, side_id=0):
 
 
 def calculate_slope(a, b):
-    return b.y() - a.y() / (a.x() - b.x())
+    return (b.y() - a.y()) / (b.x() - a.x())
 
 
 def get_upper_tangent(left_start, left_hull, right_start, right_hull):
